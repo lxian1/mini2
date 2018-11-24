@@ -1,7 +1,7 @@
 import re
 
 #This function will extract data from xml file
-#Eg. id: get_content('10.txt','<aid>','</aid>')
+#Eg. id: get_content('1k.txt','<aid>','</aid>')
 def get_content(file_name,tag,slash_tag):
     container = []
     with open(file_name) as file:
@@ -19,8 +19,8 @@ def write_terms():
     terms3 = []
     terms_final = []
     #Take ids,titles and descriptions from xml 
-    ids = get_content('10.txt','<aid>','</aid>')
-    content = get_content('10.txt','<ti>','</desc>')
+    ids = get_content('1k.txt','<aid>','</aid>')
+    content = get_content('1k.txt','<ti>','</desc>')
     #remove strange expressions
     for i in range(len(content)):
         terms.append(content[i].replace("</ti><desc>"," ").lower())
@@ -41,40 +41,51 @@ def write_terms():
 
 def write_pdates():
     write_final = []
+    d = []
+    f = []
     #take the data from xml
-    ids = get_content('10.txt','<aid>','</aid>')
-    dates = get_content('10.txt','<date>','</date>')
-    cats = get_content('10.txt','<cat>','</cat>')
-    locs = get_content('10.txt','<loc>','</loc>')
+    ids = get_content('1k.txt','<aid>','</aid>')
+    dates = get_content('1k.txt','<date>','</date>')
+    cats = get_content('1k.txt','<cat>','</cat>')
+    locs = get_content('1k.txt','<loc>','</loc>')
     #format the data
     write = zip(ids,cats,locs)
     write = list(write)
     for i in range(len(write)):
         write_final.append(','.join(write[i]))
-    for i in write_final:
-        print(i)
+    for i in range(len(dates)):
+        d.append(dates[i] + ':')
+    for i in range(len(d)):
+        f.append(d[i] + write_final[i])
     #write the data to pdates.txt    
-    #file = open('pdates.txt','w')
-    #file.writelines(["%s\n" % item  for item in write_final])
-    #file.close()
+    file = open('pdates.txt','w')
+    file.writelines(["%s\n" % item  for item in f])
+    file.close()
 
 def write_prices():
     write_final = []
+    d = []
+    f = []
     #take the data from xml
-    prices = get_content('10.txt','<price>','</price>')
-    ids = get_content('10.txt','<aid>','</aid>')
-    cats = get_content('10.txt','<cat>','</cat>')
-    locs = get_content('10.txt','<loc>','</loc>')    
-    write = zip(prices,ids,cats,locs)
+    prices = get_content('1k.txt','<price>','</price>')
+    ids = get_content('1k.txt','<aid>','</aid>')
+    cats = get_content('1k.txt','<cat>','</cat>')
+    locs = get_content('1k.txt','<loc>','</loc>')    
+    write = zip(ids,cats,locs)
     write = list(write)
     for i in range(len(write)):
-        write_final.append(','.join(write[i]))    
+        write_final.append(','.join(write[i]))
+    for i in range(len(prices)):
+        d.append(prices[i] + ':')
+    for i in range(len(d)):
+        f.append(d[i] + write_final[i])    
     #write the data to pdates.txt    
     file = open('prices.txt','w')
-    file.writelines(["%s\n" % item  for item in write_final])
+    file.writelines(["%s\n" % item  for item in f])
     file.close()    
 
 def main():
     write_pdates()
+    write_prices()
 
 main()
