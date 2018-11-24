@@ -62,6 +62,14 @@ def write_pdates():
     file.writelines(["%s\n" % item  for item in f])
     file.close()
 
+def get_ads():
+    ads = get_content('10.txt','<ad>','</ad>')
+    ids = get_content("10.txt", "<aid>", "</aid>")
+    file = open("ads.txt", "w") # TODO: Detect malformed ads? (missing an ad ID) len(ads) != len(ids)
+    for i in range(len(ads)):
+        file.write("{}:<ad>{}</ad>\n".format(ids[i], ads[i])) # TODO Shouldn't have to replace ad tags
+
+
 def write_prices():
     write_final = []
     d = []
