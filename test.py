@@ -37,7 +37,8 @@ def write_terms():
     #file.writelines(["%s\n" % item  for item in terms_final])
     #file.writelines(["%s\n" % item  for item in ids])
     for k, v in dictionary.items():
-        file.write(str(k) + ':'+ str(v) + '\n\n')    
+        for item in k.split(" "):
+            file.write(str(item) + ':'+ str(v) + '\n')
 
 def write_pdates():
     ids = []
@@ -61,5 +62,5 @@ def write_pdates():
     file.close()
 
 def main():
-    write_pdates()
+    write_terms()
 main()
