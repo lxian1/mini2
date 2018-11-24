@@ -47,14 +47,16 @@ def write_pdates():
     cats = get_content('10.txt','<cat>','</cat>')
     locs = get_content('10.txt','<loc>','</loc>')
     #format the data
-    write = zip(dates,ids,cats,locs)
+    write = zip(ids,cats,locs)
     write = list(write)
     for i in range(len(write)):
         write_final.append(','.join(write[i]))
+    for i in write_final:
+        print(i)
     #write the data to pdates.txt    
-    file = open('pdates.txt','w')
-    file.writelines(["%s\n" % item  for item in write_final])
-    file.close()
+    #file = open('pdates.txt','w')
+    #file.writelines(["%s\n" % item  for item in write_final])
+    #file.close()
 
 def write_prices():
     write_final = []
@@ -73,6 +75,6 @@ def write_prices():
     file.close()    
 
 def main():
-    write_prices()
+    write_pdates()
 
 main()
