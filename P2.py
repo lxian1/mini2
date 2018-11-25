@@ -1,4 +1,5 @@
 import re
+import bsddb3
 
 #This function will extract data from xml file
 #Eg. id: get_content('1k.txt','<aid>','</aid>')
@@ -68,7 +69,7 @@ def get_ads():
     file = open("ads.txt", "w") # TODO: Detect malformed ads? (missing an ad ID) len(ads) != len(ids)
     for i in range(len(ads)):
         file.write("{}:<ad>{}</ad>\n".format(ids[i], ads[i])) # TODO Shouldn't have to replace ad tags
-
+    file.close()
 
 def write_prices():
     write_final = []
@@ -93,7 +94,6 @@ def write_prices():
     file.close()    
 
 def main():
-    write_pdates()
-    write_prices()
+    get_ads()
 
 main()
