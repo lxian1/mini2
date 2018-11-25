@@ -19,8 +19,8 @@ def write_terms():
     terms3 = []
     terms_final = []
     #Take ids,titles and descriptions from xml 
-    ids = get_content('1k.txt','<aid>','</aid>')
-    content = get_content('1k.txt','<ti>','</desc>')
+    ids = get_content('10.txt','<aid>','</aid>')
+    content = get_content('10.txt','<ti>','</desc>')
     #remove strange expressions
     for i in range(len(content)):
         terms.append(content[i].replace("</ti><desc>"," ").lower())
@@ -37,7 +37,9 @@ def write_terms():
     #file.writelines(["%s\n" % item  for item in terms_final])
     #file.writelines(["%s\n" % item  for item in ids])
     for k, v in dictionary.items():
-        file.write(str(k) + ':'+ str(v) + '\n\n')    
+        for item in k.split(" "):
+            file.write(str(item) + ':'+ str(v) + '\n')
+    file.close()
 
 def write_pdates():
     write_final = []
@@ -62,7 +64,7 @@ def write_pdates():
     file.writelines(["%s\n" % item  for item in f])
     file.close()
 
-def get_ads():
+def write_ads():
     ads = get_content('10.txt','<ad>','</ad>')
     ids = get_content("10.txt", "<aid>", "</aid>")
     file = open("ads.txt", "w") # TODO: Detect malformed ads? (missing an ad ID) len(ads) != len(ids)
@@ -92,8 +94,12 @@ def write_prices():
     file.writelines(["%s\n" % item  for item in f])
     file.close()    
 
+#This program will generate 4 txt files
 def main():
+    write_terms()
     write_pdates()
-    write_prices()
-
+    write_ads()
+    write_prices()   
+    
+    
 main()
