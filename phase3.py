@@ -1,6 +1,4 @@
-from bsddb3 import *
-import bsddb3
-import sys
+from bsddb3 import db
 
 
 def usr_interface():
@@ -38,6 +36,6 @@ def main():
     #access to the idxed database
     database = db.DB()
     DB_File = "pr.idx"
-    bsddb3.btopen(DB_File,'c')
+    database.open(DB_File, None, db.DB_BTREE, db.DB_RDONLY)
     
 main()
