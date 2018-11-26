@@ -88,7 +88,7 @@ def write_prices():
         d.append(prices[i] + ':')
     for i in range(len(d)):
         f.append(d[i] + write_final[i])    
-    #write the data to pdates.txt    
+    #write the data to pdates.txt
     file = open('prices.txt','w')
     file.writelines(["%s\n" % item  for item in f])
     file.close()    
